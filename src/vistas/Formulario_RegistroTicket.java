@@ -1,13 +1,13 @@
 package vistas;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
 import java.sql.*;
 import javax.swing.ImageIcon;
 import modelo.Parqueadero;
-import modelo.Ticket;
 import modelo.Usuario;
 
 /*
@@ -43,6 +43,8 @@ public class Formulario_RegistroTicket extends javax.swing.JFrame {
         URL url = getClass().getResource("/ASSETS/bigIcon.png");
         ImageIcon ima = new ImageIcon(url);
         setIconImage(ima.getImage());
+        Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation( tamañoPantalla.width - 474 ,tamañoPantalla.height-237);
 
     }
 

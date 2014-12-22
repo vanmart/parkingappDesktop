@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -90,6 +92,8 @@ public class Formulario_RegistroParqueadero extends javax.swing.JFrame {
         URL url=getClass().getResource("/ASSETS/bigIcon.png");
         ImageIcon ima=new ImageIcon(url);
         setIconImage(ima.getImage());
+        Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation( tamañoPantalla.width - 420 ,tamañoPantalla.height-329);
 
     }
 

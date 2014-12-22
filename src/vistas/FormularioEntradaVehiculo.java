@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
@@ -33,12 +35,12 @@ Date fecha_Entrada;
         URL url=getClass().getResource("/ASSETS/bigIcon.png");
         ImageIcon ima=new ImageIcon(url);
         setIconImage(ima.getImage());
-        
         java.util.Date fecha_entrada =new java.util.Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MMM-YYYY");
         fecha_Entrada= new Date(fecha_entrada.getTime());
         tf_fecha.setText(formatoFecha.format(fecha_Entrada));
-        
+        Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation( tamañoPantalla.width - 472 ,tamañoPantalla.height-258);
         consultaTipoVehiculos();
     }
     
@@ -156,8 +158,8 @@ public void consultaTipoVehiculos()
                                 .addGap(18, 18, 18)
                                 .addComponent(cB_TV, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(cB_TC, 0, 103, Short.MAX_VALUE)))))
-                .addGap(47, 47, 47))
+                                .addComponent(cB_TC, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

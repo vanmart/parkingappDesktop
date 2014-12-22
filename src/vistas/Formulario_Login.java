@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,12 +39,13 @@ public class Formulario_Login extends javax.swing.JFrame {
     public Formulario_Login() {
         initComponents();
         this.setTitle("LogIn");
-        
         URL url=getClass().getResource("/ASSETS/bigIcon.png");
         ImageIcon ima=new ImageIcon(url);
         setIconImage(ima.getImage());
         superAdmin = new Usuario("Ivan", "Martinez", 890000, "SuperAdmin", "SA123456", 000, "vanmartc.com", 0);
         superAdmin1 = new Usuario("Juan Pablo", "Aguirre", 890000, "SuperAdmin", "SA123456", 000, "jpac.com", 0);
+        Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation(tamañoPantalla.width - 345,tamañoPantalla.height-255);
     }
 
 //    public void EnviarUsuarios(Usuario superAdmin, Usuario superAdmin1) {
