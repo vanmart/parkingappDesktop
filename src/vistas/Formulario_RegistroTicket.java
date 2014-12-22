@@ -28,7 +28,7 @@ public class Formulario_RegistroTicket extends javax.swing.JFrame {
     int id_parqueadero;
 
     
-     public void recibirAdmin(Usuario admin){
+     public void recibirUsuario(Usuario admin){
         this.usuario=admin;
         System.out.println(admin.getNombre());
         
@@ -143,8 +143,9 @@ public class Formulario_RegistroTicket extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        FormularioEntradaVehiculo entrada = new FormularioEntradaVehiculo();
-        entrada.setVisible(true);
+        FormularioEntradaVehiculo form_entrada = new FormularioEntradaVehiculo();
+        form_entrada.recibirUsuario(usuario);
+        form_entrada.setVisible(true);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
