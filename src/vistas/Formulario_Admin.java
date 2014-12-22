@@ -135,7 +135,7 @@ public class Formulario_Admin extends javax.swing.JFrame {
         
         Formulario_RegistroTicket form_ticket = new Formulario_RegistroTicket();
         System.out.println(admin.getNombre()+" algo");
-        form_ticket.recibirAdmin(admin);
+        form_ticket.recibirUsuario(admin);
         form_ticket.modificarLabels(admin);
         form_ticket.setVisible(true);
         setVisible(false);

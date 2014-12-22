@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import modelo.Conectar;
+import modelo.Usuario;
 
 /**
  *
@@ -22,6 +23,7 @@ import modelo.Conectar;
 public class FormularioEntradaVehiculo extends javax.swing.JFrame {
 Date fecha_Entrada;
     Date fecha_Salida;
+    Usuario usuario;
     /**
      * Creates new form FormularioEntradaVehiculo
      */
@@ -65,6 +67,11 @@ public void consultaTipoVehiculos()
             e.printStackTrace();
         }
 }
+
+  public void recibirUsuario(Usuario admin){
+        this.usuario=admin;
+        System.out.println(admin.getNombre());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

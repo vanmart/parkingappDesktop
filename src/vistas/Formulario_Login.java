@@ -187,7 +187,7 @@ public class Formulario_Login extends javax.swing.JFrame {
                 if (usuario.getRole().equals("Empleado")) 
                 {
                     Formulario_RegistroTicket formularioEmpleado = new Formulario_RegistroTicket();
-                    formularioEmpleado.recibirAdmin(usuario);
+                    formularioEmpleado.recibirUsuario(usuario);
                     
                     formularioEmpleado.setVisible(true);
                     setVisible(false);
