@@ -1,7 +1,14 @@
 package vistas;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import java.sql.*;
+import javax.swing.ImageIcon;
+import modelo.Parqueadero;
+import modelo.Ticket;
+import modelo.Usuario;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -10,22 +17,44 @@ import java.util.Date;
  */
 /**
  *
- * @author Myrian Chica
+ * @author
  */
 public class Formulario_RegistroTicket extends javax.swing.JFrame {
-String nom;
 
-public void RecibirNombre(String nom){
-     nombre_parquedero.setText(nombre_parquedero.getText()+ nom);
-}
-       
-   
+    String nom;
+    Usuario usuario;
+    Date fecha_Entrada;
+    Date fecha_Salida;
+    int id_parqueadero;
+
+    
+     public void recibirAdmin(Usuario admin){
+        this.usuario=admin;
+        System.out.println(admin.getNombre());
+        
+    }
     /**
      * Creates new form Formulario
      */
     public Formulario_RegistroTicket() {
         initComponents();
         
+        this.setTitle("Registro de Tickets");
+        URL url = getClass().getResource("/ASSETS/bigIcon.png");
+        ImageIcon ima = new ImageIcon(url);
+        setIconImage(ima.getImage());
+
+    }
+
+    public void recibirId(int id) {
+        this.id_parqueadero = id;
+    }
+    
+    public void modificarLabels(Usuario u){
+        Parqueadero par = new Parqueadero();
+        par = par.getParqueadero(par.GetIdParquedero());
+        jl_nombre_parquedero.setText(par.getNombre());
+        jl_nombreUsuario.setText(u.getNombre());
     }
 
     /**
@@ -38,21 +67,16 @@ public void RecibirNombre(String nom){
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
-        nombre_parquedero = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jl_nombre_parquedero = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        tf_fecha = new javax.swing.JTextField();
-        tf_hora = new javax.swing.JTextField();
-        tf_placa = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jl_nombreUsuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        nombre_parquedero.setText("PARQUEADERO: ");
-
-        jLabel2.setText("FECHA :");
+        jl_nombre_parquedero.setText("TOMA EL NOMBRE DELPARQUEADERO: ");
 
         jButton1.setText("ENTRADA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -68,88 +92,84 @@ public void RecibirNombre(String nom){
             }
         });
 
-        jLabel1.setText("HORA :");
-
-        tf_hora.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Cerrar Sesion");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_horaActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("PLACA : ");
+        jl_nombreUsuario.setText("nombre del Empleado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombre_parquedero, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(tf_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tf_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tf_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(205, 205, 205)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
-                .addContainerGap(215, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jl_nombre_parquedero)
+                        .addGap(14, 14, 14)
+                        .addComponent(jButton3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jl_nombreUsuario)
+                        .addGap(165, 165, 165))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(nombre_parquedero)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tf_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(tf_hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jl_nombre_parquedero))
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jl_nombreUsuario)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tf_horaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_horaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tf_horaActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Date fecha=new Date();
-        SimpleDateFormat formatoFecha=new SimpleDateFormat("dd-MMM-YYYY");
-        SimpleDateFormat formatoHora=new SimpleDateFormat("h:mm a");
-        tf_fecha.setText(formatoFecha.format(fecha));
-        tf_hora.setText(formatoHora.format(fecha));
-       
+        FormularioEntradaVehiculo entrada = new FormularioEntradaVehiculo();
+        entrada.setVisible(true);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+
+        java.util.Date fecha_salida = new java.util.Date();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MMM-YYYY");
+        SimpleDateFormat formatoHora = new SimpleDateFormat("h:mm a");
+        fecha_Salida = new Date(fecha_salida.getTime());
+
+//        long dife = fecha_Salida.getTime() - fecha_Entrada.getTime();
+//        tf_hora.setText(formatoHora.format(fecha_Salida));
+//        long horas = dife / (1000 * 60);
+//        System.out.println(horas);
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        usuario.CerrarSesion(usuario.getEmail());
+        Formulario_Login formLogin = new Formulario_Login();
+        formLogin.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,14 +198,19 @@ public void RecibirNombre(String nom){
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                
+
                 new Formulario_RegistroTicket().setVisible(true);
-               
+
             }
         });
     }
@@ -193,13 +218,9 @@ public void RecibirNombre(String nom){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JFileChooser jFileChooser1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private static javax.swing.JLabel nombre_parquedero;
-    private javax.swing.JTextField tf_fecha;
-    private javax.swing.JTextField tf_hora;
-    private javax.swing.JTextField tf_placa;
+    private javax.swing.JLabel jl_nombreUsuario;
+    private static javax.swing.JLabel jl_nombre_parquedero;
     // End of variables declaration//GEN-END:variables
 }

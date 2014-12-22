@@ -5,6 +5,11 @@
  */
 package vistas;
 
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import javax.swing.ImageIcon;
+import modelo.Conectar;
 import modelo.Parqueadero;
 import modelo.Usuario;
 
@@ -14,8 +19,8 @@ import modelo.Usuario;
  */
 public class Formulario_Login extends javax.swing.JFrame {
 
-    Usuario superadmin;
-    Usuario superadmin1;
+    Usuario superAdmin;
+    Usuario superAdmin1;
     boolean instalado;
 
     /**
@@ -24,19 +29,26 @@ public class Formulario_Login extends javax.swing.JFrame {
     public void RecibirNombre(String nom) {
         nombrePar.setText(nom);
     }
-public void RecibirInstalacion(boolean instalado){
-    this.instalado=instalado;
-}
+
+    public void RecibirInstalacion(boolean instalado) {
+        this.instalado = instalado;
+    }
+
     public Formulario_Login() {
         initComponents();
-       
+        this.setTitle("LogIn");
+        
+        URL url=getClass().getResource("/ASSETS/bigIcon.png");
+        ImageIcon ima=new ImageIcon(url);
+        setIconImage(ima.getImage());
+        superAdmin = new Usuario("Ivan", "Martinez", 890000, "SuperAdmin", "SA123456", 000, "vanmartc.com", 0);
+        superAdmin1 = new Usuario("Juan Pablo", "Aguirre", 890000, "SuperAdmin", "SA123456", 000, "jpac.com", 0);
     }
 
-    public void EnviarUsuarios(Usuario superAdmin, Usuario superAdmin1) {
-        this.superadmin = superAdmin;
-        this.superadmin1 = superAdmin1;
-    }
-
+//    public void EnviarUsuarios(Usuario superAdmin, Usuario superAdmin1) {
+//        this.superAdmin = superAdmin;
+//        this.superAdmin1 = superAdmin1;
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,20 +60,22 @@ public void RecibirInstalacion(boolean instalado){
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        UsuarioEmail = new javax.swing.JTextField();
-        contrasena = new javax.swing.JPasswordField();
+        tf_Email = new javax.swing.JTextField();
+        tf_contrasena = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         nombrePar = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("Email:");
 
         jLabel2.setText("Contraseña:");
 
-        contrasena.addActionListener(new java.awt.event.ActionListener() {
+        tf_contrasena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contrasenaActionPerformed(evt);
+                tf_contrasenaActionPerformed(evt);
             }
         });
 
@@ -72,43 +86,56 @@ public void RecibirInstalacion(boolean instalado){
             }
         });
 
+        jLabel3.setText("Bienvenido");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(134, 134, 134))
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(65, 65, 65)
+                                .addComponent(tf_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombrePar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
                         .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(contrasena)
-                            .addComponent(UsuarioEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(nombrePar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                        .addComponent(tf_contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nombrePar, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(UsuarioEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nombrePar, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(13, 13, 13))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(tf_contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,34 +143,65 @@ public void RecibirInstalacion(boolean instalado){
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-     
-        String pass = new String(contrasena.getPassword());
+
+        String pass = new String(tf_contrasena.getPassword());
 //        if (instalado == false) {
 
-            if (superadmin.getEmail().equals(UsuarioEmail.getText()) && superadmin.getPassword().equals(pass)
-                || superadmin1.getEmail().equals(UsuarioEmail.getText()) && superadmin1.getPassword().equals(pass)) {
-                Formulario_SuperAdmin formGeneral = new Formulario_SuperAdmin();
-                formGeneral.setVisible(true);
-                setVisible(false);
-            }
-           
-//        } 
-            else{
-            System.out.println("Ejecutando Consulta");    
-            Parqueadero par = new Parqueadero();
-            if (par.LoginUsuario(UsuarioEmail.getText(), pass)) {
-                Formulario_Admin formularioAdmin = new Formulario_Admin();
-                formularioAdmin.setVisible(true);
-                setVisible(false);
+
+        if (superAdmin.getEmail().equals(tf_Email.getText()) && superAdmin.getPassword().equals(pass)
+                || superAdmin1.getEmail().equals(tf_Email.getText()) && superAdmin1.getPassword().equals(pass)) {
+            Formulario_SuperAdmin form_sA = new Formulario_SuperAdmin();
+            form_sA.recibirUsuario(superAdmin);
+            form_sA.setVisible(true);
+            setVisible(false);
+        } else {
+            //System.out.println("Ejecutando Consulta");
+
+            Usuario usuario = new Usuario();
+            if (usuario.LoginUsuario(tf_Email.getText(), pass)) {
+                System.out.println(usuario.getNombre());
+                usuario.AbrirSesion(tf_Email.getText());
+                
+                if (usuario.getRole().equals("Propietario")) 
+                {
+                    Formulario_Admin formularioAdmin = new Formulario_Admin();
+                    formularioAdmin.RecibirUsuario(usuario);
+                    
+                    Formulario_RegistroUsuarios form_RegistroUsuarios = new Formulario_RegistroUsuarios();
+                    System.out.println(usuario.getNombre());
+                    form_RegistroUsuarios.recibirAdmin(usuario);
+                    formularioAdmin.setVisible(true);
+                    setVisible(false);
+                }
+                if (usuario.getRole().equals("Administrador")) 
+                {
+                    Formulario_Admin formularioAdmin = new Formulario_Admin();
+                    formularioAdmin.RecibirUsuario(usuario);
+                    Formulario_RegistroUsuarios form_RegistroUsuarios = new Formulario_RegistroUsuarios();
+                    
+                    System.out.println(usuario.getNombre());
+                    form_RegistroUsuarios.recibirAdmin(usuario);
+                    formularioAdmin.setVisible(true);
+                    setVisible(false);
+                }
+                if (usuario.getRole().equals("Empleado")) 
+                {
+                    Formulario_RegistroTicket formularioEmpleado = new Formulario_RegistroTicket();
+                    formularioEmpleado.recibirAdmin(usuario);
+                    
+                    formularioEmpleado.setVisible(true);
+                    setVisible(false);
+                }
+
             }
        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
-    private void contrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasenaActionPerformed
+    private void tf_contrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_contrasenaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_contrasenaActionPerformed
+    }//GEN-LAST:event_tf_contrasenaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,11 +239,12 @@ public void RecibirInstalacion(boolean instalado){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField UsuarioEmail;
-    private javax.swing.JPasswordField contrasena;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel nombrePar;
+    private javax.swing.JTextField tf_Email;
+    private javax.swing.JPasswordField tf_contrasena;
     // End of variables declaration//GEN-END:variables
 }

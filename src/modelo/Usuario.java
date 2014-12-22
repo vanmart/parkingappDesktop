@@ -2,7 +2,9 @@ package modelo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,9 +18,10 @@ import vistas.Formulario_RegistroParqueadero;
  */
 /**
  *
- * @author Myrian Chica
+ * 
  */
 public class Usuario {
+
     int id;
     String nombre;
     String apellido;
@@ -28,13 +31,14 @@ public class Usuario {
     int cedula;
     String email;
     int idParqueadero;
-   
+    boolean sesion;
+
     public Usuario() {
-       
+
     }
 
     public Usuario(String nombre, String apellido, int telefono, String role, String password, int cedula, String email, int idParqueadero) {
-        
+        this.sesion = false;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
@@ -45,17 +49,86 @@ public class Usuario {
         this.idParqueadero = idParqueadero;
     }
 
-  
-public void RecibirIdParquedero(int idParqueadero){
-    this.idParqueadero=idParqueadero;
+   
+public void AbrirSesion(String email){
+     try {
+                // create the java mysql update preparedstatement
+                Conectar con = new Conectar();
+                Connection reg = con.conexion();    
+                String query = "update usuario set sesion = ? where email = ?"; 
+                PreparedStatement preparedStmt = reg.prepareStatement(query);
+                preparedStmt.setBoolean(1, true);
+                preparedStmt.setString(2, email);
+
+                // execute the java preparedstatement
+                preparedStmt.executeUpdate();
+                System.out.println("Sesion Abierta");
+                reg.close();
+              } catch (Exception e) {
+              System.out.println(""+ e);  
+              }
 }
+ public void CerrarSesion(String email) {
+        try {
+                // create the java mysql update preparedstatement
+                Conectar con = new Conectar();
+                Connection reg = con.conexion();    
+                String query = "update usuario set sesion = ? where email = ?"; 
+                PreparedStatement preparedStmt = reg.prepareStatement(query);
+                preparedStmt.setBoolean(1, false);
+                preparedStmt.setString(2, email);
 
+                // execute the java preparedstatement
+                preparedStmt.executeUpdate();
+                System.out.println("Sesion Cerrada");
+                reg.close();
+              } catch (Exception e) {
+              System.out.println(""+ e);  
+              }
+    }
+    public boolean LoginUsuario(String email, String password) {
+       
+        try {
+            Conectar con = new Conectar();
+            Connection reg = con.conexion();
+            Statement st = reg.createStatement();
+            //ResultSet rs = st.executeQuery("select * from usuario where email like .com");
+            ResultSet rs = st.executeQuery("select * from usuario where email ='" + email + "' && contraseña = '" + password + "'");
+            while (rs.next()) {
+                System.out.println("LOGUEADO Y USUARIO OBTENIDO");
+       
+                //OBTENIENDO USUARIO DE LA BD
+                nombre=rs.getString("nombre");
+                apellido=rs.getString("apellido");
+                cedula=rs.getInt("cedula");
+                this.email=rs.getString("email");
+                telefono=rs.getInt("telefono");
+                idParqueadero=rs.getInt("parqueadero_idparqueadero");
+                role=rs.getString("role");
+                this.password=rs.getString("contraseña");
+                sesion=rs.getBoolean("sesion");
+                
+                
+                return true;
+            }
+            
+            rs.close();
+            st.close();
+            reg.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-public void insertarUsuario() {
+        return false;
+    }
+
+    public void insertarUsuario(int idParqueadero) {
+        
+        this.idParqueadero = idParqueadero;
         Conectar con = new Conectar();
         Connection reg = con.conexion();
         String sql;
-        sql = "INSERT INTO `usuario`( `nombre`, `apellido`, `cedula`, `telefono`, `role`, `email`, `contraseña`, `parqueadero_idparqueadero`) VALUES (?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO `usuario`( `nombre`, `apellido`, `cedula`, `telefono`, `role`, `email`, `contraseña`, `sesion`,`parqueadero_idparqueadero`) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst = reg.prepareStatement(sql);
             pst.setString(1, nombre);
@@ -65,11 +138,12 @@ public void insertarUsuario() {
             pst.setString(5, role);
             pst.setString(6, email);
             pst.setString(7, password);
-            pst.setInt(8, idParqueadero);
+            pst.setBoolean(8, sesion);
+            pst.setInt(9, this.idParqueadero);
             int n = pst.executeUpdate();
-          
+
             if (n > 0) {
-                JOptionPane.showMessageDialog(null, "Registrado con exito BITCH");
+                JOptionPane.showMessageDialog(null, "Registrado con exito ");
             }
             pst.close();
             reg.close();
@@ -77,6 +151,12 @@ public void insertarUsuario() {
             Logger.getLogger(Formulario_RegistroParqueadero.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    
+
+   
+
+
     public String getEmail() {
         return email;
     }
@@ -85,8 +165,29 @@ public void insertarUsuario() {
         this.email = email;
     }
 
-    
     public int getId() {
+        try {
+            Conectar con = new Conectar();
+            Connection reg = con.conexion();
+            Statement st = reg.createStatement();
+            //ResultSet rs = st.executeQuery("select * from usuario where email like .com");
+            ResultSet rs = st.executeQuery("select * from usuario where email ='" + email + "' && contraseña = '" + password + "'");
+            while (rs.next()) {
+                
+       
+                //OBTENIENDO IDUSUARIO DE LA BD
+                id=rs.getInt("idusuario");
+                System.out.println("idusuario obtenido");
+                
+            }
+            
+            rs.close();
+            st.close();
+            reg.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return id;
     }
 
@@ -110,18 +211,15 @@ public void insertarUsuario() {
         this.apellido = apellido;
     }
 
-   
-
     public String getRole() {
-        return role;
-    }
+             return role;
+            }
+        
+    
 
     public void setRole(String role) {
         this.role = role;
     }
-
-
-    
 
     public String getPassword() {
         return password;
@@ -155,6 +253,4 @@ public void insertarUsuario() {
         this.idParqueadero = idParqueadero;
     }
 
-    
-    
 }

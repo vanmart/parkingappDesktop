@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +13,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.xml.bind.DatatypeConverter;
 import modelo.Conectar;
 import modelo.Parqueadero;
 import modelo.Usuario;
@@ -23,37 +26,59 @@ import modelo.Usuario;
  * @author Myrian Chica
  */
 public class Formulario_RegistroParqueadero extends javax.swing.JFrame {
+    
+    Boolean nuevo = true;
+
+    public Boolean getNuevo() {
+        return nuevo;
+    }
+
+    public void setNuevo(Boolean nuevo) {
+        this.nuevo = nuevo;
+    }
+    
 
     public JTextField getTf_p_direccion() {
-        return tf_p_direccion;
+        return tf_direccion;
     }
 
     public void setTf_p_direccion(JTextField tf_p_direccion) {
-        this.tf_p_direccion = tf_p_direccion;
+        this.tf_direccion = tf_p_direccion;
     }
 
     public JTextField getTf_p_email() {
-        return tf_p_email;
+        return tf_email;
     }
 
     public void setTf_p_email(JTextField tf_p_email) {
-        this.tf_p_email = tf_p_email;
+        this.tf_email = tf_p_email;
     }
 
     public JTextField getTf_p_nombre() {
-        return tf_p_nombre;
+        return tf_nombre;
     }
 
     public void setTf_p_nombre(JTextField tf_p_nombre) {
-        this.tf_p_nombre = tf_p_nombre;
+        this.tf_nombre = tf_p_nombre;
     }
 
     public JTextField getTf_p_telefono() {
-        return tf_p_telefono;
+        return tf_telefono;
     }
 
     public void setTf_p_telefono(JTextField tf_p_telefono) {
-        this.tf_p_telefono = tf_p_telefono;
+        this.tf_telefono = tf_p_telefono;
+    }
+    
+    public void llenarFormParqueadero(){
+        Parqueadero p = new Parqueadero();
+        p = p.getParqueadero(p.GetIdParquedero());
+        this.tf_nombre.setText(p.getNombre());
+        this.tf_direccion.setText(p.getDireccion());
+        this.tf_telefono.setText(String.valueOf(p.getTelefono()));
+        this.tf_email.setText(p.getEmail());
+        this.setNuevo(false);
+        
     }
 
     /**
@@ -61,6 +86,10 @@ public class Formulario_RegistroParqueadero extends javax.swing.JFrame {
      */
     public Formulario_RegistroParqueadero() {
         initComponents();
+        this.setTitle("Registro de Parqueadero");
+        URL url=getClass().getResource("/ASSETS/bigIcon.png");
+        ImageIcon ima=new ImageIcon(url);
+        setIconImage(ima.getImage());
 
     }
 
@@ -77,55 +106,61 @@ public class Formulario_RegistroParqueadero extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        tf_p_nombre = new javax.swing.JTextField();
-        tf_p_direccion = new javax.swing.JTextField();
-        tf_p_telefono = new javax.swing.JTextField();
-        tf_p_email = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        tf_nombre = new javax.swing.JTextField();
+        tf_direccion = new javax.swing.JTextField();
+        tf_telefono = new javax.swing.JTextField();
+        tf_email = new javax.swing.JTextField();
         btn_p_guardar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        jLabel1.setText("NOMBRE:");
+        jLabel1.setText("Nombre:");
 
-        jLabel2.setText("DIRECCION:");
+        jLabel2.setText("Direccion:");
 
-        jLabel3.setText("TELEFONO: ");
+        jLabel3.setText("Telefono:");
 
-        jLabel4.setText("EMAIL :");
+        jLabel4.setText("Email:");
 
-        tf_p_nombre.addActionListener(new java.awt.event.ActionListener() {
+        tf_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_p_nombreActionPerformed(evt);
+                tf_nombreActionPerformed(evt);
             }
         });
 
-        tf_p_direccion.addActionListener(new java.awt.event.ActionListener() {
+        tf_direccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_p_direccionActionPerformed(evt);
+                tf_direccionActionPerformed(evt);
             }
         });
 
-        tf_p_telefono.addActionListener(new java.awt.event.ActionListener() {
+        tf_telefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_p_telefonoActionPerformed(evt);
+                tf_telefonoActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("DATOS PARQUEADERO");
-
-        btn_p_guardar.setText("GUARDAR");
+        btn_p_guardar.setText("Guardar");
         btn_p_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_p_guardarActionPerformed(evt);
             }
         });
 
-        jButton1.setText("LIMPIAR");
+        jButton1.setText("Limpiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -134,78 +169,85 @@ public class Formulario_RegistroParqueadero extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                            .addComponent(tf_direccion)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+                        .addComponent(btn_p_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel1))
-                                .addGap(69, 69, 69)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tf_p_nombre)
-                                    .addComponent(tf_p_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tf_p_telefono)
-                                    .addComponent(tf_p_email, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(29, 29, 29)
+                                .addComponent(tf_email))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(btn_p_guardar)
-                                .addGap(47, 47, 47)
-                                .addComponent(jButton1))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(jLabel5)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                                .addGap(30, 30, 30)
+                                .addComponent(tf_telefono)))))
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel5)
-                .addGap(30, 30, 30)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel2)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel3)
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel4))
-                    .addComponent(jLabel1)
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel2))
+                    .addComponent(tf_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(tf_p_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(tf_p_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(tf_p_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tf_p_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_p_guardar)
-                    .addComponent(jButton1))
-                .addGap(51, 51, 51))
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel3))
+                    .addComponent(tf_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel4))
+                    .addComponent(tf_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_p_guardar)
+                        .addComponent(jButton1)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tf_p_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_p_nombreActionPerformed
+    private void tf_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_nombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tf_p_nombreActionPerformed
+    }//GEN-LAST:event_tf_nombreActionPerformed
 
-    private void tf_p_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_p_direccionActionPerformed
+    private void tf_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_direccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tf_p_direccionActionPerformed
+    }//GEN-LAST:event_tf_direccionActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        tf_p_telefono.setText("");
-        tf_p_email.setText("");
-        tf_p_nombre.setText("");
-        tf_p_direccion.setText("");
+        tf_telefono.setText("");
+        tf_email.setText("");
+        tf_nombre.setText("");
+        tf_direccion.setText("");
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -240,14 +282,24 @@ public class Formulario_RegistroParqueadero extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         
-        Parqueadero parqueadero=new Parqueadero(tf_p_nombre.getText(), tf_p_direccion.getText(), Integer.parseInt(tf_p_telefono.getText()), tf_p_email.getText(), null, null, null, null);
+        Parqueadero parqueadero=new Parqueadero(tf_nombre.getText(), tf_direccion.getText(), Integer.parseInt(tf_telefono.getText()), tf_email.getText(), null, null, null, null);
         parqueadero.registrarParqueadero();
         int idparqueadero = parqueadero.GetIdParquedero();
 //        System.out.println("el id del parking> "+idparqueadero); 
         Formulario_RegistroUsuarios formularioRegistroUsuarios = new Formulario_RegistroUsuarios();
         formularioRegistroUsuarios.recibirId(idparqueadero);
-        formularioRegistroUsuarios.setVisible(true);
-        setVisible(false);
+        //si lo que voy a guardar es de un usuario nuevo 
+        if (this.nuevo == false) {
+            
+            formularioRegistroUsuarios.llenarFormUsuario();
+            formularioRegistroUsuarios.setVisible(true);
+        }
+        else{
+            formularioRegistroUsuarios.setNuevo(true);
+            formularioRegistroUsuarios.setVisible(true);
+        }
+        
+        dispose();
         
 //            sql_parking_id="SELECT * FROM Parquedero";
 //            PreparedStatement pst2= reg.prepareStatement(sql_parking_id);
@@ -269,9 +321,16 @@ public class Formulario_RegistroParqueadero extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_p_guardarActionPerformed
 
-    private void tf_p_telefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_p_telefonoActionPerformed
+    private void tf_telefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_telefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tf_p_telefonoActionPerformed
+    }//GEN-LAST:event_tf_telefonoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Formulario_Admin form_A = new Formulario_Admin();
+        form_A.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,14 +371,14 @@ public class Formulario_RegistroParqueadero extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_p_guardar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField tf_p_direccion;
-    private javax.swing.JTextField tf_p_email;
-    private javax.swing.JTextField tf_p_nombre;
-    private javax.swing.JTextField tf_p_telefono;
+    private javax.swing.JTextField tf_direccion;
+    private javax.swing.JTextField tf_email;
+    private javax.swing.JTextField tf_nombre;
+    private javax.swing.JTextField tf_telefono;
     // End of variables declaration//GEN-END:variables
 }

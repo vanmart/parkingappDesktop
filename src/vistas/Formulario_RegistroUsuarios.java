@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,8 +15,10 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.Conectar;
+import modelo.Parqueadero;
 import modelo.Usuario;
 
 /**
@@ -23,17 +26,50 @@ import modelo.Usuario;
  * @author JP
  */
 public class Formulario_RegistroUsuarios extends javax.swing.JFrame {
-   int id_parqueadero;
-  
-    public Formulario_RegistroUsuarios() {
-        
-            initComponents();
-      
+
+    int id_parqueadero;
+    Usuario admin;
+    boolean nuevo = true;
+
+    public boolean isNuevo() {
+        return nuevo;
     }
-    
+
+    public void setNuevo(boolean nuevo) {
+        this.nuevo = nuevo;
+    }
+    public Formulario_RegistroUsuarios() {
+
+        initComponents();
+        this.setTitle("Registro de Usuarios");
+        URL url=getClass().getResource("/ASSETS/bigIcon.png");
+        ImageIcon ima=new ImageIcon(url);
+        setIconImage(ima.getImage());
+
+    }
+
     public void recibirId(int id) {
         this.id_parqueadero = id;
     }
+    public void recibirAdmin(Usuario admin){
+        this.admin=admin;
+        System.out.println(admin.getNombre());
+        
+    }
+    
+    public void llenarFormUsuario(){
+        Parqueadero p = new Parqueadero();
+        Usuario u = new Usuario();
+        u = p.getPropietario();
+        this.tf_nombre.setText(u.getNombre());
+        this.tf_apellido.setText(u.getApellido());
+        this.tf_cedula.setText(String.valueOf(u.getCedula()));
+        this.tf_tel.setText(String.valueOf(u.getTelefono()));
+        this.tf_email.setText(u.getEmail());
+        this.jComboBox1.setSelectedItem(u.getRole());
+        this.tf_password.setText(u.getPassword());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +79,6 @@ public class Formulario_RegistroUsuarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -57,131 +92,227 @@ public class Formulario_RegistroUsuarios extends javax.swing.JFrame {
         tf_tel = new javax.swing.JTextField();
         tf_email = new javax.swing.JTextField();
         tf_password = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
+        btn_cancelar_form_RegUsuarios = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-        jLabel1.setText("DATOS USUARIO");
+        jLabel2.setText("Nombre:");
 
-        jLabel2.setText("NOMBRE:");
+        jLabel3.setText("Apellido:");
 
-        jLabel3.setText("APELLIDO:");
+        jLabel4.setText("Cedula:");
 
-        jLabel4.setText("CEDULA:");
+        jLabel5.setText("Telefono:");
 
-        jLabel5.setText("TELEFONO:");
+        jLabel6.setText("Email:");
 
-        jLabel6.setText("EMAIL:");
+        jLabel7.setText("Rol:");
 
-        jLabel7.setText("ROL:");
+        jLabel8.setText("Contraseña:");
 
-        jLabel8.setText("CONTRASEÑA:");
+        tf_tel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_telActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("GUARDAR");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar rol", "Propietario", "Administrador", "Empleado" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        btn_cancelar_form_RegUsuarios.setText("Cancelar");
+        btn_cancelar_form_RegUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelar_form_RegUsuariosActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Empleado" }));
+        jButton2.setText("Limpiar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tf_nombre)
-                            .addComponent(tf_cedula)
-                            .addComponent(tf_email, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_password, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(tf_apellido))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_cancelar_form_RegUsuarios))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addGap(14, 14, 14)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tf_nombre)
+                            .addComponent(tf_apellido)
+                            .addComponent(tf_cedula)
                             .addComponent(tf_tel)
+                            .addComponent(tf_email)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 43, Short.MAX_VALUE)))))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(125, 125, 125))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(198, 198, 198)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tf_password))))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
+                    .addComponent(tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(tf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
+                    .addComponent(tf_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(tf_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(tf_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(tf_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(tf_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(37, 37, 37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_cancelar_form_RegUsuarios)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
+                                                          
+
+
+    private void btn_cancelar_form_RegUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar_form_RegUsuariosActionPerformed
+        // TODO add your handling code here:
+        if (admin.getRole().equals("SuperAdmin")){
+            Formulario_SuperAdmin form_sA = new Formulario_SuperAdmin();
+            
+            
+        }
+        Formulario_Admin form_A = new Formulario_Admin();
+        form_A.RecibirUsuario(admin);
+        form_A.setVisible(true);
+        dispose();
+
+
+    }//GEN-LAST:event_btn_cancelar_form_RegUsuariosActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-       String pass=new String(tf_password.getPassword());
-       
-       Usuario user= new Usuario( tf_nombre.getText(), tf_apellido.getText(), Integer.parseInt(tf_tel.getText()),jComboBox1.getSelectedItem().toString(), pass,Integer.parseInt(tf_cedula.getText()) , tf_email.getText(),this.id_parqueadero);
-       user.RecibirIdParquedero(this.id_parqueadero);
-       user.insertarUsuario();
-       Formulario_Login formLogin = new Formulario_Login();
-       formLogin.setVisible(true);
-       setVisible(false);
-       
+        
+        String pass = new String(tf_password.getPassword());
+        Parqueadero par = new Parqueadero();
+        int idparqueadero = par.GetIdParquedero();
+        Usuario user = new Usuario(tf_nombre.getText(), tf_apellido.getText(), Integer.parseInt(tf_tel.getText()), jComboBox1.getSelectedItem().toString(), pass, Integer.parseInt(tf_cedula.getText()), tf_email.getText(), this.id_parqueadero);
+        //user.RecibirIdParquedero(this.id_parqueadero);
+        user.insertarUsuario(idparqueadero);
+//        System.out.println(admin.getNombre());
+        if (user.getRole().equals("Empleado")) {
+           
+            Mensaje_De_Registrar_Mas_Empleados mensaje = new Mensaje_De_Registrar_Mas_Empleados();
+            System.out.println(admin.getNombre());
+            mensaje.recibirAdmin(admin);
+            mensaje.setVisible(true);
+
+        } else {
+           
+            
+           Formulario_SuperAdmin  nuevo= new Formulario_SuperAdmin();
+           nuevo.setVisible(true);
+           
+        }
+        dispose();
+        //LIMPIANDO FORMULARIO
+        tf_nombre.setText("");
+        tf_apellido.setText("");
+        tf_tel.setText("");
+        tf_cedula.setText("");
+        tf_password.setText("");
+        tf_email.setText("");
+
+//        if (user.getRole().equals("Administrador")) {
+//
+//            Formulario_Login formLogin = new Formulario_Login();
+//            formLogin.setVisible(true);
+//            setVisible(false);
+//        }
+//        if (user.getRole().equals("Empleado")) {
+//            Formulario_Admin formAdmin = new Formulario_Admin();
+//            formAdmin.setVisible(true);
+//            setVisible(false);
+//        }
+//
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void tf_telActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_telActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_telActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        tf_nombre.setText("");
+        tf_apellido.setText("");
+        tf_cedula.setText("");
+        tf_tel.setText("");
+        tf_email.setText("");
+        tf_password.setText("");
+        jComboBox1.setSelectedIndex(0);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -220,9 +351,10 @@ public class Formulario_RegistroUsuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cancelar_form_RegUsuarios;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

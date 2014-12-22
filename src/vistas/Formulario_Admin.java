@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import java.net.URL;
+import javax.swing.ImageIcon;
 import modelo.Usuario;
 
 /**
@@ -13,11 +15,23 @@ import modelo.Usuario;
  */
 public class Formulario_Admin extends javax.swing.JFrame {
 
+    Usuario admin;
+
     /**
      * Creates new form FormularioAdmin
      */
     public Formulario_Admin() {
         initComponents();
+        this.setTitle("Registro de Usuarios");
+        URL url=getClass().getResource("/ASSETS/bigIcon.png");
+        ImageIcon ima=new ImageIcon(url);
+        setIconImage(ima.getImage());
+    }
+
+    public void RecibirUsuario(Usuario admin) {
+        
+        this.admin = admin;
+        
     }
 
     /**
@@ -32,8 +46,11 @@ public class Formulario_Admin extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("Registro Empleados");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -42,32 +59,62 @@ public class Formulario_Admin extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Cambio Tarifas");
+        jButton2.setText("Registro Tarifas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Tickets");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Bienvenido Administrador");
+
+        jButton4.setText("Cerrar Sesion");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
+                            .addComponent(jButton4))
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(136, 136, 136))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -75,10 +122,43 @@ public class Formulario_Admin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        Formulario_RegistroUsuarios Fomulario =new Formulario_RegistroUsuarios();
-        Fomulario.setVisible(true);
+
+        Formulario_RegistroUsuarios formulario = new Formulario_RegistroUsuarios();
+        formulario.recibirAdmin(admin);
+        formulario.setVisible(true);
+        dispose();
+//        Formulario.RecibirFormulario_Admin(this.);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        Formulario_RegistroTicket form_ticket = new Formulario_RegistroTicket();
+        System.out.println(admin.getNombre()+" algo");
+        form_ticket.recibirAdmin(admin);
+        form_ticket.modificarLabels(admin);
+        form_ticket.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+       
+        admin.CerrarSesion(admin.getEmail());
+        Formulario_Login form = new Formulario_Login();
+        form.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+          Formulario_RegistroTarifas tarifas =new Formulario_RegistroTarifas();
+          tarifas.recibirAdmin(admin);
+          
+          tarifas.setVisible(true);
+          setVisible(false);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,5 +200,7 @@ public class Formulario_Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
