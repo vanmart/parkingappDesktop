@@ -76,7 +76,7 @@ public class Formulario_RegistroTicket extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jl_nombre_parquedero.setText("TOMA EL NOMBRE DELPARQUEADERO: ");
+        jl_nombre_parquedero.setText("Nombre Parqueadero");
 
         jButton1.setText("ENTRADA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +99,7 @@ public class Formulario_RegistroTicket extends javax.swing.JFrame {
             }
         });
 
-        jl_nombreUsuario.setText("nombre del Empleado");
+        jl_nombreUsuario.setText("Nombre usuario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,25 +113,27 @@ public class Formulario_RegistroTicket extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(75, 75, 75))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jl_nombre_parquedero)
-                        .addGap(14, 14, 14)
-                        .addComponent(jButton3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jl_nombreUsuario)
-                        .addGap(165, 165, 165))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(jl_nombreUsuario))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jl_nombre_parquedero)
+                            .addGap(112, 112, 112)
+                            .addComponent(jButton3)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jl_nombre_parquedero))
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jl_nombreUsuario)
-                .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addGap(49, 49, 49))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jl_nombre_parquedero)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jl_nombreUsuario)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -143,9 +145,10 @@ public class Formulario_RegistroTicket extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        FormularioEntradaVehiculo form_entrada = new FormularioEntradaVehiculo();
-        form_entrada.recibirUsuario(usuario);
-        form_entrada.setVisible(true);
+
+        FormularioEntradaVehiculo entrada = new FormularioEntradaVehiculo();
+        entrada.modificarLabels(usuario);
+        entrada.setVisible(true);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
