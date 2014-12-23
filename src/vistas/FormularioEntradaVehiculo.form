@@ -48,11 +48,7 @@
                           <Group type="102" attributes="0">
                               <Component id="tf_fecha" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-<<<<<<< HEAD
                               <Component id="Jlabel_Hora" min="-2" max="-2" attributes="0"/>
-=======
-                              <Component id="cB_TC" max="32767" attributes="0"/>
->>>>>>> repo_vanmartc/ubicacionFormularios
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -69,9 +65,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="jl_nombreUsuario" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLbl_nombreUsuario" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jl_nombreParqueadero" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLbl_nombreParqueadero" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -81,9 +77,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jl_nombreParqueadero" min="-2" max="-2" attributes="0"/>
+              <Component id="jLbl_nombreParqueadero" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jl_nombreUsuario" min="-2" max="-2" attributes="0"/>
+              <Component id="jLbl_nombreUsuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="31" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="tf_placa" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -171,12 +167,12 @@
         <Property name="text" type="java.lang.String" value="Guardar ticket"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jl_nombreParqueadero">
+    <Component class="javax.swing.JLabel" name="jLbl_nombreParqueadero">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nombre Parqueadero"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jl_nombreUsuario">
+    <Component class="javax.swing.JLabel" name="jLbl_nombreUsuario">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nombre usuario"/>
       </Properties>

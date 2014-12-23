@@ -43,15 +43,17 @@ Date fecha_Entrada;
         tf_hora.setText(formatoHora.format(fecha_Entrada));
         tf_fecha.setText(formatoFecha.format(fecha_Entrada));
         Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation( tamañoPantalla.width - 472 ,tamañoPantalla.height-258);
+        setLocation( tamañoPantalla.width - 472 ,tamañoPantalla.height-259);
         consultaTipoVehiculos();
     }
     public void modificarLabels(Usuario user)
     {
         Parqueadero par = new Parqueadero();
         par = par.getParqueadero(par.GetIdParquedero());
-        jl_nombreParqueadero.setText(par.getNombre());
-        jl_nombreUsuario.setText(user.getNombre());
+        jLbl_nombreParqueadero.setText(par.getNombre());
+        jLbl_nombreUsuario.setText(user.getNombre());
+        // jl_nombreParqueadero.setText(par.getNombre());
+       // jl_nombreUsuario.setText(user.getNombre());
     }
     
 public void consultaTipoVehiculos()
@@ -101,8 +103,8 @@ public void consultaTipoVehiculos()
         cB_TC = new javax.swing.JComboBox();
         Jlabel_Hora = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jl_nombreParqueadero = new javax.swing.JLabel();
-        jl_nombreUsuario = new javax.swing.JLabel();
+        jLbl_nombreParqueadero = new javax.swing.JLabel();
+        jLbl_nombreUsuario = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -143,9 +145,9 @@ public void consultaTipoVehiculos()
 
         jButton1.setText("Guardar ticket");
 
-        jl_nombreParqueadero.setText("Nombre Parqueadero");
+        jLbl_nombreParqueadero.setText("Nombre Parqueadero");
 
-        jl_nombreUsuario.setText("Nombre usuario");
+        jLbl_nombreUsuario.setText("Nombre usuario");
 
         jButton2.setText("Cerrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -179,33 +181,28 @@ public void consultaTipoVehiculos()
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tf_fecha)
                                 .addGap(18, 18, 18)
-<<<<<<< HEAD
                                 .addComponent(Jlabel_Hora)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tf_hora, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(47, 47, 47))
+                .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(180, 180, 180)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jl_nombreUsuario))
-                    .addComponent(jl_nombreParqueadero))
+                        .addComponent(jLbl_nombreUsuario))
+                    .addComponent(jLbl_nombreParqueadero))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-=======
-                                .addComponent(cB_TC, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(27, Short.MAX_VALUE))
->>>>>>> repo_vanmartc/ubicacionFormularios
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jl_nombreParqueadero)
+                .addComponent(jLbl_nombreParqueadero)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jl_nombreUsuario)
+                .addComponent(jLbl_nombreUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,8 +289,8 @@ public void consultaTipoVehiculos()
     private javax.swing.JComboBox cB_TV;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jl_nombreParqueadero;
-    private javax.swing.JLabel jl_nombreUsuario;
+    private javax.swing.JLabel jLbl_nombreParqueadero;
+    private javax.swing.JLabel jLbl_nombreUsuario;
     private javax.swing.JTextField tf_fecha;
     private javax.swing.JTextField tf_hora;
     private javax.swing.JTextField tf_placa;
