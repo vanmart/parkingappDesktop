@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
@@ -34,14 +36,14 @@ Date fecha_Entrada;
         URL url=getClass().getResource("/ASSETS/bigIcon.png");
         ImageIcon ima=new ImageIcon(url);
         setIconImage(ima.getImage());
-        
         java.util.Date fecha_entrada =new java.util.Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MMM-YYYY");
         SimpleDateFormat formatoHora = new SimpleDateFormat("h:mm a");
         fecha_Entrada= new Date(fecha_entrada.getTime());
         tf_hora.setText(formatoHora.format(fecha_Entrada));
         tf_fecha.setText(formatoFecha.format(fecha_Entrada));
-        
+        Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation( tamañoPantalla.width - 472 ,tamañoPantalla.height-258);
         consultaTipoVehiculos();
     }
     public void modificarLabels(Usuario user)
@@ -177,6 +179,7 @@ public void consultaTipoVehiculos()
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tf_fecha)
                                 .addGap(18, 18, 18)
+<<<<<<< HEAD
                                 .addComponent(Jlabel_Hora)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -191,6 +194,10 @@ public void consultaTipoVehiculos()
                         .addComponent(jl_nombreUsuario))
                     .addComponent(jl_nombreParqueadero))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+=======
+                                .addComponent(cB_TC, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(27, Short.MAX_VALUE))
+>>>>>>> repo_vanmartc/ubicacionFormularios
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

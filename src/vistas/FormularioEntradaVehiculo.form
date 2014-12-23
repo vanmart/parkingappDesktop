@@ -48,7 +48,11 @@
                           <Group type="102" attributes="0">
                               <Component id="tf_fecha" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
+<<<<<<< HEAD
                               <Component id="Jlabel_Hora" min="-2" max="-2" attributes="0"/>
+=======
+                              <Component id="cB_TC" max="32767" attributes="0"/>
+>>>>>>> repo_vanmartc/ubicacionFormularios
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -58,7 +62,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>

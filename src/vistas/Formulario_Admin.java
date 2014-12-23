@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import modelo.Usuario;
@@ -26,6 +28,9 @@ public class Formulario_Admin extends javax.swing.JFrame {
         URL url=getClass().getResource("/ASSETS/bigIcon.png");
         ImageIcon ima=new ImageIcon(url);
         setIconImage(ima.getImage());
+        Dimension tamañoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation(tamañoPantalla.width - 414,tamañoPantalla.height-298);
+        
     }
 
     public void RecibirUsuario(Usuario admin) {

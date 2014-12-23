@@ -25,6 +25,7 @@ public class Mensaje_De_Registrar_Mas_Empleados extends javax.swing.JFrame {
         URL url=getClass().getResource("/ASSETS/bigIcon.png");
         ImageIcon ima=new ImageIcon(url);
         setIconImage(ima.getImage());
+        setLocationRelativeTo(null);
     }
     public void recibirAdmin(Usuario admin){
         this.admin=admin;
